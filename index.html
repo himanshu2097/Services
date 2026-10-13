@@ -28,10 +28,10 @@
     <div class="flex items-center justify-between">
       <div>
         <div class="flex items-center gap-2">
-          <span class="text-[10px] font-extrabold tracking-widest text-sky-400 uppercase">ATLAS 2.0 • Complete Scope</span>
+          <span class="text-[10px] font-extrabold tracking-widest text-sky-400 uppercase">ATLAS 2.0 • Interactive Scope</span>
           <span class="text-[10px] bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full border border-emerald-500/30">Meridian Jaipur</span>
         </div>
-        <h1 class="text-base font-bold text-white mt-0.5">D2O Services & 25-Chapter Roadmap</h1>
+        <h1 id="headerTitle" class="text-base font-bold text-white mt-0.5">Chapter 10: Structural Design</h1>
       </div>
       <button onclick="toggleDrawer()" class="px-3 py-1.5 rounded-xl bg-slate-800 border border-slate-700 text-xs font-bold text-sky-300">
         🗺️ All 25 Chapters
@@ -40,8 +40,8 @@
 
     <!-- MAIN SCOPE NAVIGATION TABS -->
     <div class="flex gap-2 overflow-x-auto no-scrollbar mt-2.5 pb-1">
-      <button onclick="switchScope('d2o')" class="scope-tab shrink-0 px-3 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 text-xs font-bold border border-emerald-500/40" id="tab-d2o">1. D2O Service Portfolio</button>
-      <button onclick="switchScope('lifecycle')" class="scope-tab shrink-0 px-3 py-1 rounded-lg bg-slate-800 text-slate-300 text-xs font-bold border border-slate-700" id="tab-lifecycle">2. Building Lifecycle (Ch 1-10)</button>
+      <button onclick="switchScope('d2o')" class="scope-tab shrink-0 px-3 py-1 rounded-lg bg-slate-800 text-slate-300 text-xs font-bold border border-slate-700" id="tab-d2o">1. D2O Service Portfolio</button>
+      <button onclick="switchScope('lifecycle')" class="scope-tab shrink-0 px-3 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 text-xs font-bold border border-emerald-500/40" id="tab-lifecycle">2. Building Lifecycle (Ch 1-10)</button>
       <button onclick="switchScope('compliance')" class="scope-tab shrink-0 px-3 py-1 rounded-lg bg-slate-800 text-slate-300 text-xs font-bold border border-slate-700" id="tab-compliance">3. Statutory & Compliance</button>
       <button onclick="switchScope('simulations')" class="scope-tab shrink-0 px-3 py-1 rounded-lg bg-slate-800 text-slate-300 text-xs font-bold border border-slate-700" id="tab-simulations">4. Simulations & Audits</button>
     </div>
@@ -54,7 +54,7 @@
       <div class="p-4 border-b border-slate-800 flex justify-between items-center">
         <div>
           <div class="text-xs font-bold text-sky-400">ATLAS 2.0 MASTER CURRICULUM</div>
-          <div class="text-[11px] text-slate-400">Complete 25-Chapter Roadmap</div>
+          <div class="text-[11px] text-slate-400">Tap any completed chapter to load it</div>
         </div>
         <button onclick="toggleDrawer()" class="text-slate-400 text-lg font-bold px-2">✕</button>
       </div>
@@ -69,7 +69,7 @@
   <div id="termSheet" class="fixed inset-x-0 bottom-0 z-40 bg-slate-900 border-t-2 border-sky-500 rounded-t-3xl p-5 shadow-2xl transform translate-y-full transition-transform duration-300 max-h-[85vh] overflow-y-auto">
     <div class="flex items-start justify-between mb-3 sticky top-0 bg-slate-900 pb-2 border-b border-slate-800">
       <div>
-        <span id="termBadge" class="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-sky-500/20 text-sky-300">D2O Service / Concept</span>
+        <span id="termBadge" class="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-sky-500/20 text-sky-300">Concept</span>
         <h3 id="termName" class="text-lg font-bold text-white mt-1">Term Title</h3>
       </div>
       <button onclick="closeTerm()" class="bg-slate-800 text-slate-300 rounded-full w-8 h-8 font-bold flex items-center justify-center">✕</button>
@@ -93,36 +93,37 @@
   <script>
     // Complete 25-Chapter Curriculum Database
     const chapters = [
-      { id: 1, title: "Birth of a Building — Owner's Idea", status: "done" },
-      { id: 2, title: "Land Ownership, Title & Zoning Rules", status: "done" },
-      { id: 3, title: "Site Investigation & Soil SBC", status: "done" },
-      { id: 4, title: "Development Potential, FAR/FSI & Setbacks", status: "done" },
-      { id: 5, title: "Project Feasibility, CAPEX, OPEX & IRR", status: "done" },
-      { id: 6, title: "Project Brief, OPR & BOD", status: "done" },
-      { id: 7, title: "Design Team & Consultant Coordination", status: "done" },
-      { id: 8, title: "Concept Design & Site Massing", status: "done" },
-      { id: 9, title: "Architectural Plans, Sections & Elevations", status: "done" },
-      { id: 10, title: "Structural Design, Loads & Load Paths", status: "active" },
-      { id: 11, title: "HVAC Systems, Chillers & Energy Modelling", status: "next" },
-      { id: 12, title: "Electrical Systems, SLD & Backup Power", status: "locked" },
-      { id: 13, title: "Plumbing, Water Balance & STP Treatment", status: "locked" },
-      { id: 14, title: "Fire & Life Safety (FLS) & Smoke Management", status: "locked" },
-      { id: 15, title: "Building Envelope, Façade & Glazing Performance", status: "locked" },
-      { id: 16, title: "Statutory Approvals (EC, CTE, CTO & NOCs)", status: "locked" },
-      { id: 17, title: "Green Building Certifications (LEED, IGBC, GRIHA, WELL)", status: "locked" },
-      { id: 18, title: "CFD Simulations & Thermal Comfort Analysis", status: "locked" },
-      { id: 19, title: "Energy & Water Audits", status: "locked" },
-      { id: 20, title: "Electrical Safety & FLS Compliance Audits", status: "locked" },
-      { id: 21, title: "Life Cycle Assessment (LCA) & Embodied Carbon", status: "locked" },
-      { id: 22, title: "Commissioning (Cx), Testing & Balancing", status: "locked" },
-      { id: 23, title: "As-Built Handover & Facility Management", status: "locked" },
-      { id: 24, title: "Net-Zero Strategies, Retrofits & Optimization", status: "locked" },
-      { id: 25, title: "Professional Consultancy Pitching & Client Advisory", status: "locked" }
+      { id: 1, title: "Birth of a Building — Owner's Idea", status: "done", desc: "Owner's business case, corporate leasing objectives, and initial concept for Meridian Developments in Jaipur." },
+      { id: 2, title: "Land Ownership, Title & Zoning Rules", status: "done", desc: "Jaipur Development Authority (JDA) master plan zones, land use permissions, and title due diligence." },
+      { id: 3, title: "Site Investigation & Soil SBC", status: "done", desc: "Geotechnical soil testing, boreholes, and Safe Bearing Capacity (SBC) determining foundation types." },
+      { id: 4, title: "Development Potential, FAR/FSI & Setbacks", status: "done", desc: "Floor Area Ratio calculations, ground coverage limits, building height restrictions, and mandatory setbacks." },
+      { id: 5, title: "Project Feasibility, CAPEX, OPEX & IRR", status: "done", desc: "Financial modeling, capital expenditure, operational costs, and return on investment for Grade-A leasing." },
+      { id: 6, title: "Project Brief, OPR & BOD", status: "done", desc: "Owner's Project Requirements (OPR) and Basis of Design (BOD) for 1,000 corporate occupants." },
+      { id: 7, title: "Design Team & Consultant Coordination", status: "done", desc: "Roles of Lead Architects, Structural Engineers, MEP Consultants, and Project Management Consultants (PMC)." },
+      { id: 8, title: "Concept Design & Site Massing", status: "done", desc: "Orientation, solar shading, wind paths, and massing optimization on the 2-acre Jaipur site." },
+      { id: 9, title: "Architectural Plans, Sections & Elevations", status: "done", desc: "Interpreting floor plans, core layouts, egress staircases, and glass facade elevations." },
+      { id: 10, title: "Structural Design, Loads & Load Paths", status: "active", desc: "RCC framework, Dead/Live/Lateral loads, beam-column-foundation load transfer, and Embodied Carbon." },
+      { id: 11, title: "HVAC Systems, Chillers & Energy Modelling", status: "next", desc: "Central chilled-water plant, air-cooled chillers, AHUs, FCUs, and energy modelling software." },
+      { id: 12, title: "Electrical Systems, SLD & Backup Power", status: "locked", desc: "HT/LT panels, Transformers, DG backup sets, and Single Line Diagrams (SLD)." },
+      { id: 13, title: "Plumbing, Water Balance & STP Treatment", status: "locked", desc: "Water supply distribution, drainage, rainwater harvesting, and Sewage Treatment Plant (STP)." },
+      { id: 14, title: "Fire & Life Safety (FLS) & Smoke Management", status: "locked", desc: "NBC norms, sprinkler systems, smoke extraction, and emergency evacuation egress." },
+      { id: 15, title: "Building Envelope, Façade & Glazing Performance", status: "locked", desc: "Double-glazed units (DGU), U-value, SHGC, and thermal insulation." },
+      { id: 16, title: "Statutory Approvals (EC, CTE, CTO & NOCs)", status: "locked", desc: "Environmental Clearance, State Pollution Control Board CTE/CTO, and local fire/electrical NOCs." },
+      { id: 17, title: "Green Building Certifications (LEED, IGBC, GRIHA, WELL)", status: "locked", desc: "Rating systems, credit documentation, and certification compliance audits." },
+      { id: 18, title: "CFD Simulations & Thermal Comfort Analysis", status: "locked", desc: "Computational Fluid Dynamics for indoor airflow and pedestrian wind comfort." },
+      { id: 19, title: "Energy & Water Audits", status: "locked", desc: "Portable power meters, water flow logging, and efficiency enhancement reports." },
+      { id: 20, title: "Electrical Safety & FLS Compliance Audits", status: "locked", desc: "Thermographic panel scanning, earth pit testing, and safety checks." },
+      { id: 21, title: "Life Cycle Assessment (LCA) & Embodied Carbon", status: "locked", desc: "Cradle-to-grave material carbon accounting and circularity strategies." },
+      { id: 22, title: "Commissioning (Cx), Testing & Balancing", status: "locked", desc: "Pre-handover verification of MEPF systems against design intent." },
+      { id: 23, title: "As-Built Handover & Facility Management", status: "locked", desc: "Operation & Maintenance manuals, as-built drawings, and FM handovers." },
+      { id: 24, title: "Net-Zero Strategies, Retrofits & Optimization", status: "locked", desc: "Decarbonization roadmaps, solar PV integration, and building energy retrofits." },
+      { id: 25, title: "Professional Consultancy Pitching & Client Advisory", status: "locked", desc: "Communicating technical value, scoping proposals, and client management." }
     ];
 
     // Complete Scope Tracks
     const scopes = {
       "d2o": {
+        title: "Official D2O Service Portfolio",
         html: `
           <section class="bg-slate-900 border border-slate-800 rounded-2xl p-4 space-y-4">
             <span class="step-badge bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">Official D2O Scope</span>
@@ -156,11 +157,12 @@
         `
       },
       "lifecycle": {
+        title: "Chapter 10: Structural Design",
         html: `
           <section class="bg-slate-900 border border-slate-800 rounded-2xl p-4 space-y-4">
-            <span class="step-badge bg-sky-500/20 text-sky-300 border border-sky-500/30">Chapters 1 to 10 Recap</span>
-            <h2 class="text-base font-bold text-white">Meridian Developments — Structural Stage</h2>
-            <p class="text-sm text-slate-300 leading-relaxed">
+            <span class="step-badge bg-sky-500/20 text-sky-300 border border-sky-500/30">Active Chapter 10</span>
+            <h2 id="activeChapterTitle" class="text-base font-bold text-white">Meridian Developments — Structural Stage</h2>
+            <p id="activeChapterDesc" class="text-sm text-slate-300 leading-relaxed">
               Our 2-acre, G+8 commercial office project in Jaipur has crossed site surveys, architectural massing, and is currently at <span class="term-pill" onclick="openTerm('Structural Design')">Structural Design</span> (Chapter 10).
             </p>
             <div class="space-y-3 text-xs">
@@ -173,6 +175,7 @@
         `
       },
       "compliance": {
+        title: "Statutory & Compliance Track",
         html: `
           <section class="bg-slate-900 border border-slate-800 rounded-2xl p-4 space-y-4">
             <span class="step-badge bg-amber-500/20 text-amber-300 border border-amber-500/30">Statutory Track (Ch 16)</span>
@@ -190,6 +193,7 @@
         `
       },
       "simulations": {
+        title: "Simulations & Audits Track",
         html: `
           <section class="bg-slate-900 border border-slate-800 rounded-2xl p-4 space-y-4">
             <span class="step-badge bg-purple-500/20 text-purple-300 border border-purple-500/30">Simulations & Audits (Ch 18-22)</span>
@@ -210,105 +214,57 @@
 
     // Detailed Terms Database
     const terms = {
-      "LEED": {
-        badge: "D2O Core Service • Green Certification",
-        hinglish: "Leadership in Energy and Environmental Design — USGBC ka global green building rating system.",
-        workflow: "Registration, credit documentation, energy modelling, and final certification review.",
-        classification: "Verified D2O Core Offering"
-      },
-      "IGBC": {
-        badge: "D2O Core Service • Indian Rating",
-        hinglish: "Indian Green Building Council rating system tailored for Indian climatic conditions.",
-        workflow: "Documentation across mandatory and optional green credits.",
-        classification: "Verified D2O Core Offering"
-      },
-      "ECBC": {
-        badge: "D2O Core Service • Energy Compliance",
-        hinglish: "Energy Conservation Building Code — Commercial buildings ke liye mandatory energy standard.",
-        workflow: "Evaluated via architectural drawing review and compliance software simulation.",
-        classification: "Verified D2O Core Offering"
-      },
-      "CFD": {
-        badge: "D2O Core Service • Advanced Simulation",
-        hinglish: "Computational Fluid Dynamics — Computer par hawa ke bahav ki physics test karna.",
-        workflow: "Generates 3D velocity and pressure contours to optimize natural ventilation.",
-        classification: "Verified D2O Core Offering"
-      },
-      "Energy Audits": {
-        badge: "D2O Core Service • Operational Audit",
-        hinglish: "Building ki bijli khapat ko measure karke waste identify karna.",
-        workflow: "Portable power meters and thermal loggers deployed on site.",
-        classification: "Verified D2O Core Offering"
-      },
-      "Water Audits": {
-        badge: "D2O Core Service • Sustainability Audit",
-        hinglish: "Building mein paani kahan use ho raha hai aur kahan waste ho raha hai iska audit.",
-        workflow: "Water meter logging and fixture flow-rate testing.",
-        classification: "Verified D2O Core Offering"
-      },
-      "FLS Audits": {
-        badge: "D2O Core Service • Safety Audit",
-        hinglish: "Fire & Life Safety Audit — Fire alarms, sprinklers, aur exit staircases ki safety check karna.",
-        workflow: "Physical inspection against NBC guidelines.",
-        classification: "Verified D2O Core Offering"
-      },
-      "Electrical Audits": {
-        badge: "D2O Core Service • Safety Audit",
-        hinglish: "Electrical Safety Audit — Transformers, panels, aur earthing ki safety check karna.",
-        workflow: "Thermographic scanning and earth pit resistance testing.",
-        classification: "Verified D2O Core Offering"
-      },
-      "LCA": {
-        badge: "D2O Core Service • Carbon Accounting",
-        hinglish: "Life Cycle Assessment — Building banane se todne tak total carbon footprint calculate karna.",
-        workflow: "Inventorying material quantities using LCA software.",
-        classification: "Verified D2O Core Offering"
-      },
-      "Embodied Carbon": {
-        badge: "D2O Concept • Decarbonization",
-        hinglish: "Concrete aur steel banane mein jo carbon release hota hai.",
-        workflow: "Calculated via structural BOQ and emission factors.",
-        classification: "Verified D2O Core Offering"
-      },
-      "EC": {
-        badge: "Statutory Clearance",
-        hinglish: "Environmental Clearance — MoEFCC ya SEIAA dwara bade projects ko diya jane wala approval.",
-        workflow: "Form-1 submission and EIA study for built-up areas >20,000 sq.m.",
-        classification: "Statutory / Authorized Partner"
-      },
-      "CTE": {
-        badge: "Statutory Consent",
-        hinglish: "Consent to Establish — State Pollution Control Board se construction se pehle ki anugya.",
-        workflow: "Submitted prior to breaking ground with STP design.",
-        classification: "Technical Documentation Support"
-      },
-      "CTO": {
-        badge: "Statutory Licence",
-        hinglish: "Consent to Operate — Building complete hone par pollution board se liya jane wala licence.",
-        workflow: "Issued after physical inspection of STP and DG stack emissions.",
-        classification: "Technical Filing & Audit Support"
-      },
-      "Structural Design": {
-        badge: "Engineering Stage (Ch 10)",
-        hinglish: "Building ki haddiyan (Slab, Beam, Column, Foundation) design karna.",
-        workflow: "ETABS analysis and GFC structural drawings.",
-        classification: "Structural Consultant Scope"
-      },
-      "Beam": { badge: "Structure", hinglish: "Horizontal concrete member jo slab ka wajan columns tak le jata hai.", workflow: "Collects slab loads.", classification: "Structural Scope" },
-      "Column": { badge: "Structure", hinglish: "Vertical pillar jo wajan foundation tak press karta hai.", workflow: "Transfers axial loads.", classification: "Structural Scope" },
-      "Foundation": { badge: "Structure", hinglish: "Zameen ke neeche ka hissa jo wajan mitti mein phailata hai.", workflow: "Spreads load based on SBC.", classification: "Structural Scope" },
-      "SBC": { badge: "Geotech", hinglish: "Safe Bearing Capacity — mitti ki wajan jhelne ki taakat.", workflow: "Soil testing report.", classification: "Geotechnical Scope" },
-      "Commissioning": { badge: "QA/QC", hinglish: "Chillers aur AHUs ko test karke verify karna ki woh design ke hissaab se chal rahe hain.", workflow: "Pre-handover functional testing.", classification: "Verified D2O / Cx Partner" }
+      "LEED": { badge: "D2O Core Service", hinglish: "Leadership in Energy and Environmental Design — USGBC green rating system.", workflow: "Registration, documentation, and review.", classification: "Verified D2O Core Offering" },
+      "IGBC": { badge: "D2O Core Service", hinglish: "Indian Green Building Council rating system tailored for Indian climate.", workflow: "Credit documentation across green parameters.", classification: "Verified D2O Core Offering" },
+      "ECBC": { badge: "D2O Core Service", hinglish: "Energy Conservation Building Code for commercial buildings.", workflow: "Drawing review and simulation.", classification: "Verified D2O Core Offering" },
+      "CFD": { badge: "D2O Core Service", hinglish: "Computational Fluid Dynamics for airflow physics.", workflow: "3D velocity and pressure contours.", classification: "Verified D2O Core Offering" },
+      "Energy Audits": { badge: "D2O Core Service", hinglish: "Measuring electricity consumption to eliminate waste.", workflow: "Portable power meters on site.", classification: "Verified D2O Core Offering" },
+      "Water Audits": { badge: "D2O Core Service", hinglish: "Auditing water usage and recycling efficiency.", workflow: "Flow-rate testing and balance diagrams.", classification: "Verified D2O Core Offering" },
+      "FLS Audits": { badge: "D2O Core Service", hinglish: "Fire & Life Safety inspection against NBC norms.", workflow: "Physical escape route checks.", classification: "Verified D2O Core Offering" },
+      "Electrical Audits": { badge: "D2O Core Service", hinglish: "Inspect transformers, panels, and earthing.", workflow: "Thermographic scanning.", classification: "Verified D2O Core Offering" },
+      "LCA": { badge: "D2O Core Service", hinglish: "Life Cycle Assessment for carbon footprint.", workflow: "Material inventorying via software.", classification: "Verified D2O Core Offering" },
+      "Embodied Carbon": { badge: "D2O Concept", hinglish: "Carbon released during material manufacturing.", workflow: "Calculated via structural BOQ.", classification: "Verified D2O Core Offering" },
+      "EC": { badge: "Statutory Clearance", hinglish: "Environmental Clearance for large projects.", workflow: "Form-1 submission and EIA study.", classification: "Statutory / Authorized Partner" },
+      "CTE": { badge: "Statutory Consent", hinglish: "Consent to Establish prior to construction.", workflow: "Submitted with STP design.", classification: "Technical Documentation Support" },
+      "CTO": { badge: "Statutory Licence", hinglish: "Consent to Operate before employee occupancy.", workflow: "Physical inspection of DG/STP.", classification: "Technical Filing & Audit Support" },
+      "Structural Design": { badge: "Engineering Stage", hinglish: "Designing the RCC skeleton (Slab, Beam, Column).", workflow: "ETABS analysis and GFC drawings.", classification: "Structural Consultant Scope" },
+      "Beam": { badge: "Structure", hinglish: "Horizontal concrete member supporting slabs.", workflow: "Collects slab loads.", classification: "Structural Scope" },
+      "Column": { badge: "Structure", hinglish: "Vertical pillar transferring loads to foundation.", workflow: "Transfers axial loads.", classification: "Structural Scope" },
+      "Foundation": { badge: "Structure", hinglish: "Substructure spreading loads into soil.", workflow: "Spreads load based on SBC.", classification: "Structural Scope" },
+      "SBC": { badge: "Geotech", hinglish: "Safe Bearing Capacity of soil.", workflow: "Soil testing report.", classification: "Geotechnical Scope" },
+      "Commissioning": { badge: "QA/QC", hinglish: "Testing MEPF systems against design intent.", workflow: "Pre-handover functional testing.", classification: "Verified D2O / Cx Partner" }
     };
 
     function renderChaptersList() {
       document.getElementById('chapterList').innerHTML = chapters.map(ch => {
         const icon = ch.status === 'done' ? '✅' : ch.status === 'active' ? '🔵' : '🔒';
-        const style = ch.status === 'active' ? 'bg-sky-500/20 border border-sky-500/40 text-white font-bold' : 'text-slate-400';
-        return `<div class="px-3 py-2 rounded-xl flex justify-between items-center ${style}">
+        const isClickable = ch.status === 'done' || ch.status === 'active';
+        const style = ch.status === 'active' 
+          ? 'bg-sky-500/20 border border-sky-500/40 text-white font-bold' 
+          : ch.status === 'done' 
+          ? 'text-slate-200 hover:bg-slate-800 cursor-pointer' 
+          : 'text-slate-500 opacity-60';
+        
+        return `<div onclick="${isClickable ? `selectChapter(${ch.id})` : ''}" class="px-3 py-2 rounded-xl flex justify-between items-center ${style}">
           <span class="truncate">${ch.id}. ${ch.title}</span><span>${icon}</span>
         </div>`;
       }).join('');
+    }
+
+    function selectChapter(id) {
+      toggleDrawer();
+      const ch = chapters.find(c => c.id === id);
+      if (!ch) return;
+
+      document.getElementById('headerTitle').textContent = `Chapter ${ch.id}: ${ch.title}`;
+      
+      if (id <= 10) {
+        switchScope('lifecycle');
+        document.getElementById('activeChapterTitle').textContent = `Chapter ${ch.id}: ${ch.title}`;
+        document.getElementById('activeChapterDesc').textContent = ch.desc;
+      } else {
+        alert(`Loading Chapter ${ch.id}: ${ch.title}`);
+      }
     }
 
     function switchScope(key) {
@@ -317,6 +273,7 @@
       });
       document.getElementById(`tab-${key}`).className = "scope-tab shrink-0 px-3 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 text-xs font-bold border border-emerald-500/40";
       document.getElementById('mainContent').innerHTML = scopes[key].html;
+      document.getElementById('headerTitle').textContent = scopes[key].title;
     }
 
     function toggleDrawer() {
@@ -339,7 +296,7 @@
     }
 
     renderChaptersList();
-    switchScope('d2o');
+    switchScope('lifecycle');
   </script>
 </body>
 </html>
