@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>ATLAS — Meridian Visual Story</title>
+  <title>ATLAS 2.0 — Complete D2O & Curriculum Intelligence</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    body { background-color: #0b0f19; color: #e2e8f0; font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif; }
+    body { background-color: #060913; color: #e2e8f0; font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif; }
     .term-pill {
       display: inline-flex; align-items: center;
       background: rgba(56, 189, 248, 0.18); border: 1px solid rgba(56, 189, 248, 0.5);
       color: #38bdf8; padding: 2px 9px; border-radius: 999px; font-weight: 600;
-      cursor: pointer; font-size: 0.85em; margin: 1px 0;
+      cursor: pointer; font-size: 0.85em; margin: 2px 0;
     }
-    .term-pill:active { background: #38bdf8; color: #0b0f19; }
+    .term-pill:active { background: #38bdf8; color: #060913; }
     .step-badge {
       font-size: 0.68rem; letter-spacing: 0.08em; font-weight: 800;
       padding: 4px 10px; border-radius: 6px; text-transform: uppercase; display: inline-block;
@@ -21,252 +21,306 @@
     .no-scrollbar::-webkit-scrollbar { display: none; }
   </style>
 </head>
-<body class="min-h-screen pb-28">
+<body class="min-h-screen pb-32">
 
   <!-- STICKY MOBILE TOP BAR -->
-  <header class="sticky top-0 z-30 bg-slate-900/95 backdrop-blur border-b border-slate-800 px-4 py-3">
+  <header class="sticky top-0 z-30 bg-slate-950/95 backdrop-blur border-b border-slate-800 px-4 py-3">
     <div class="flex items-center justify-between">
       <div>
         <div class="flex items-center gap-2">
-          <span class="text-[10px] font-extrabold tracking-widest text-sky-400 uppercase">ATLAS • D2O</span>
-          <span class="text-[10px] bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full">Meridian Jaipur</span>
+          <span class="text-[10px] font-extrabold tracking-widest text-sky-400 uppercase">ATLAS 2.0 • Complete Scope</span>
+          <span class="text-[10px] bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full border border-emerald-500/30">Meridian Jaipur</span>
         </div>
-        <h1 class="text-base font-bold text-white mt-0.5">Ch 10: Structural Design</h1>
+        <h1 class="text-base font-bold text-white mt-0.5">D2O Services & 25-Chapter Roadmap</h1>
       </div>
       <button onclick="toggleDrawer()" class="px-3 py-1.5 rounded-xl bg-slate-800 border border-slate-700 text-xs font-bold text-sky-300">
-        📚 Chapters (10/25)
+        🗺️ All 25 Chapters
       </button>
     </div>
 
-    <!-- SWIPEABLE 6-STEP PILLS -->
+    <!-- MAIN SCOPE NAVIGATION TABS -->
     <div class="flex gap-2 overflow-x-auto no-scrollbar mt-2.5 pb-1">
-      <a href="#sec-see" class="shrink-0 px-3 py-1 rounded-lg bg-amber-500/20 text-amber-300 text-xs font-bold border border-amber-500/30">01 SEE</a>
-      <a href="#sec-understand" class="shrink-0 px-3 py-1 rounded-lg bg-sky-500/20 text-sky-300 text-xs font-bold border border-sky-500/30">02 UNDERSTAND</a>
-      <a href="#sec-learn" class="shrink-0 px-3 py-1 rounded-lg bg-purple-500/20 text-purple-300 text-xs font-bold border border-purple-500/30">03 LEARN</a>
-      <a href="#sec-apply" class="shrink-0 px-3 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 text-xs font-bold border border-emerald-500/30">04 APPLY</a>
-      <a href="#sec-recall" class="shrink-0 px-3 py-1 rounded-lg bg-pink-500/20 text-pink-300 text-xs font-bold border border-pink-500/30">05 RECALL</a>
+      <button onclick="switchScope('d2o')" class="scope-tab shrink-0 px-3 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 text-xs font-bold border border-emerald-500/40" id="tab-d2o">1. D2O Service Portfolio</button>
+      <button onclick="switchScope('lifecycle')" class="scope-tab shrink-0 px-3 py-1 rounded-lg bg-slate-800 text-slate-300 text-xs font-bold border border-slate-700" id="tab-lifecycle">2. Building Lifecycle (Ch 1-10)</button>
+      <button onclick="switchScope('compliance')" class="scope-tab shrink-0 px-3 py-1 rounded-lg bg-slate-800 text-slate-300 text-xs font-bold border border-slate-700" id="tab-compliance">3. Statutory & Compliance</button>
+      <button onclick="switchScope('simulations')" class="scope-tab shrink-0 px-3 py-1 rounded-lg bg-slate-800 text-slate-300 text-xs font-bold border border-slate-700" id="tab-simulations">4. Simulations & Audits</button>
     </div>
   </header>
 
-  <!-- SLIDE-OVER CHAPTER DRAWER -->
-  <div id="chapterDrawer" class="fixed inset-0 z-50 hidden">
-    <div class="absolute inset-0 bg-black/70" onclick="toggleDrawer()"></div>
-    <div class="relative w-4/5 max-w-xs bg-slate-900 h-full border-r border-slate-800 flex flex-col">
+  <!-- SLIDE-OVER ALL-CHAPTERS & SCOPE DRAWER -->
+  <div id="masterDrawer" class="fixed inset-0 z-50 hidden">
+    <div class="absolute inset-0 bg-black/80" onclick="toggleDrawer()"></div>
+    <div class="relative w-4/5 max-w-sm bg-slate-900 h-full border-r border-slate-800 flex flex-col">
       <div class="p-4 border-b border-slate-800 flex justify-between items-center">
         <div>
-          <div class="text-xs font-bold text-sky-400">MERIDIAN DEVELOPMENTS</div>
-          <div class="text-[11px] text-slate-400">Jaipur • 2 Acres • G+8 • 1,000 Pax</div>
+          <div class="text-xs font-bold text-sky-400">ATLAS 2.0 MASTER CURRICULUM</div>
+          <div class="text-[11px] text-slate-400">Complete 25-Chapter Roadmap</div>
         </div>
         <button onclick="toggleDrawer()" class="text-slate-400 text-lg font-bold px-2">✕</button>
       </div>
-      <div id="chapterList" class="flex-1 overflow-y-auto p-3 space-y-1.5"></div>
+      <div id="chapterList" class="flex-1 overflow-y-auto p-3 space-y-1.5 text-xs"></div>
     </div>
   </div>
 
-  <!-- MAIN STORY CARDS -->
-  <main class="px-4 py-5 space-y-6 max-w-xl mx-auto">
+  <!-- DYNAMIC CONTENT CONTAINER -->
+  <main id="mainContent" class="px-4 py-5 space-y-6 max-w-xl mx-auto"></main>
 
-    <!-- 01 SEE -->
-    <section id="sec-see" class="bg-slate-900 border border-slate-800 rounded-2xl p-4 space-y-4">
-      <span class="step-badge bg-amber-500/20 text-amber-300 border border-amber-500/30">01 • SEE (Scene & Interactive Diagram)</span>
-      <h2 class="text-base font-bold text-white">Scene: Meridian Conference Room, Jaipur</h2>
-      <p class="text-sm text-slate-300 leading-relaxed">
-        Chapter 9 mein Architect ne Meridian ki G+8 glass building ke <span class="term-pill" onclick="openTerm('Architectural Drawings')">Architectural Drawings</span> table par rakh diye. Ab entry hoti hai <span class="term-pill" onclick="openTerm('Structural Engineer')">Structural Engineer</span> ki:
-      </p>
-      <div class="p-3.5 rounded-xl bg-slate-950 border-l-4 border-amber-400 text-xs text-slate-200 italic leading-relaxed">
-        "Architect sahab, aapne Terrace par heavy Air-Cooled Chillers rakh diye, 8 floors par 1,000 log bitha diye, aur Ground Floor lobby mein pillars hata diye. Yeh hazaaron ton ka wajan hawa mein kaise rukega?"
-      </div>
-
-      <!-- TAP-TO-INSPECT BUILDING SKELETON -->
-      <div class="bg-slate-950 rounded-xl p-3 border border-slate-800">
-        <div class="text-[11px] text-sky-400 font-semibold text-center mb-2">👇 Tap any colored part of the building below to inspect it!</div>
-        <svg viewBox="0 0 400 300" class="w-full">
-          <rect x="0" y="235" width="400" height="65" fill="#1e293b" />
-          <line x1="0" y1="235" x2="400" y2="235" stroke="#475569" stroke-width="2" />
-
-          <!-- Roof Chiller -->
-          <g onclick="openTerm('Dead Load & Equipment Load')">
-            <rect x="105" y="18" width="85" height="26" rx="4" fill="#f59e0b" />
-            <text x="147" y="35" text-anchor="middle" fill="#0b0f19" font-size="10" font-weight="bold">CHILLER (Tap)</text>
-          </g>
-
-          <!-- Wind Arrows -->
-          <g onclick="openTerm('Lateral Load')">
-            <path d="M15 85 L68 85 M58 79 L68 85 L58 91" stroke="#38bdf8" stroke-width="3" fill="none"/>
-            <path d="M15 145 L68 145 M58 139 L68 145 L58 151" stroke="#38bdf8" stroke-width="3" fill="none"/>
-            <text x="42" y="70" text-anchor="middle" fill="#38bdf8" font-size="9" font-weight="bold">WIND / SEISMIC</text>
-          </g>
-
-          <!-- Shear Wall Core -->
-          <g onclick="openTerm('Shear Wall')">
-            <rect x="245" y="45" width="48" height="190" fill="#6366f1" />
-            <text x="269" y="140" text-anchor="middle" fill="#ffffff" font-size="10" font-weight="bold" transform="rotate(-90 269 140)">SHEAR CORE</text>
-          </g>
-
-          <!-- Slabs -->
-          <g onclick="openTerm('Slab')">
-            <rect x="80" y="45" width="240" height="11" fill="#38bdf8" />
-            <rect x="80" y="110" width="240" height="11" fill="#38bdf8" />
-            <rect x="80" y="175" width="240" height="11" fill="#38bdf8" />
-            <text x="160" y="104" fill="#7dd3fc" font-size="10" font-weight="bold">SLAB (Tap)</text>
-          </g>
-
-          <!-- Beams -->
-          <g onclick="openTerm('Beam')">
-            <rect x="80" y="56" width="240" height="9" fill="#fb7185" />
-            <rect x="80" y="121" width="240" height="9" fill="#fb7185" />
-            <rect x="80" y="186" width="240" height="9" fill="#fb7185" />
-            <text x="160" y="143" fill="#fda4af" font-size="10" font-weight="bold">BEAM (Tap)</text>
-          </g>
-
-          <!-- Columns -->
-          <g onclick="openTerm('Column')">
-            <rect x="85" y="45" width="16" height="190" fill="#34d399" />
-            <rect x="190" y="45" width="16" height="190" fill="#34d399" />
-            <rect x="304" y="45" width="16" height="190" fill="#34d399" />
-            <text x="140" y="218" fill="#6ee7b7" font-size="10" font-weight="bold">COLUMN</text>
-          </g>
-
-          <!-- Foundation -->
-          <g onclick="openTerm('Foundation')">
-            <polygon points="65,270 120,270 105,235 78,235" fill="#a855f7" />
-            <polygon points="170,270 225,270 210,235 183,235" fill="#a855f7" />
-            <rect x="235" y="235" width="95" height="35" fill="#a855f7" />
-            <text x="200" y="290" text-anchor="middle" fill="#e9d5ff" font-size="11" font-weight="bold">FOUNDATION IN SOIL (SBC)</text>
-          </g>
-        </svg>
-      </div>
-    </section>
-
-    <!-- 02 UNDERSTAND -->
-    <section id="sec-understand" class="bg-slate-900 border border-slate-800 rounded-2xl p-4 space-y-3">
-      <span class="step-badge bg-sky-500/20 text-sky-300 border border-sky-500/30">02 • UNDERSTAND (Minto Pyramid + Story)</span>
-      <div class="p-3.5 bg-sky-950/50 border border-sky-500/30 rounded-xl text-sm">
-        <div class="text-[11px] font-bold text-sky-400 uppercase">Minto Main Answer:</div>
-        <p class="text-white mt-1 leading-relaxed">
-          Building isliye safe khadi rehti hai kyunki uska <span class="term-pill" onclick="openTerm('RCC')">RCC</span> skeleton saare wajan ko ek fixed <span class="term-pill" onclick="openTerm('Load Path')">Load Path</span> se zameen mein bhejta hai: <strong>Slab ➔ Beam ➔ Column ➔ Foundation ➔ Soil.</strong>
-        </p>
-      </div>
-      <p class="text-sm text-slate-300 leading-relaxed">
-        <strong>Tray Analogy:</strong> Jaise aap haath mein bhari tray pakadte ho—Tray ki plate <span class="term-pill" onclick="openTerm('Slab')">Slab</span> hai, aapki baazu <span class="term-pill" onclick="openTerm('Beam')">Beam</span> hai, aapki spine aur pair <span class="term-pill" onclick="openTerm('Column')">Column</span> hain, aur aapke joote <span class="term-pill" onclick="openTerm('Foundation')">Foundation</span> hain jo aapko mitti mein dhasne nahi dete!
-      </p>
-    </section>
-
-    <!-- 03 LEARN -->
-    <section id="sec-learn" class="bg-slate-900 border border-slate-800 rounded-2xl p-4 space-y-3">
-      <span class="step-badge bg-purple-500/20 text-purple-300 border border-purple-500/30">03 • LEARN (MECE Loads & Indian Codes)</span>
-      <div class="space-y-2.5 text-xs">
-        <div class="p-3 rounded-xl bg-slate-950 border border-slate-800">
-          <div class="text-amber-400 font-bold text-sm">1. Dead Load (IS 875 Part 1)</div>
-          <p class="text-slate-300 mt-1">Building ka permanent wajan: Concrete slabs, beams, walls, aur terrace par rakha <span class="term-pill" onclick="openTerm('Dead Load & Equipment Load')">Chiller</span>.</p>
-        </div>
-        <div class="p-3 rounded-xl bg-slate-950 border border-slate-800">
-          <div class="text-emerald-400 font-bold text-sm">2. Live Load (IS 875 Part 2)</div>
-          <p class="text-slate-300 mt-1">Movable wajan: Meridian ke 1,000 log, desks, chairs, aur parking ki cars (<span class="term-pill" onclick="openTerm('Live Load')">Live Load</span>).</p>
-        </div>
-        <div class="p-3 rounded-xl bg-slate-950 border border-slate-800">
-          <div class="text-sky-400 font-bold text-sm">3. Lateral Load (IS 875 Pt 3 & IS 1893)</div>
-          <p class="text-slate-300 mt-1">Sideways dhakka: Jaipur ki aandhi (Wind) aur Earthquake (Seismic Zone II), jise <span class="term-pill" onclick="openTerm('Shear Wall')">Shear Wall</span> rokti hai.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- 04 APPLY -->
-    <section id="sec-apply" class="bg-slate-900 border border-slate-800 rounded-2xl p-4 space-y-3">
-      <span class="step-badge bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">04 • APPLY (D2O Consultancy Connection)</span>
-      <div class="space-y-2.5 text-xs">
-        <div class="p-3 rounded-xl bg-slate-950 border border-slate-800">
-          <div class="font-bold text-emerald-400 text-sm">🌱 LEED LCA & Embodied Carbon</div>
-          <p class="text-slate-300 mt-1">Building ke total <span class="term-pill" onclick="openTerm('Embodied Carbon')">Embodied Carbon</span> ka 65%+ hissa Concrete aur Steel mein hota hai. D2O consultant <span class="term-pill" onclick="openTerm('BOQ')">BOQ</span> lekar Fly Ash / GGBS mix suggest karta hai.</p>
-        </div>
-        <div class="p-3 rounded-xl bg-slate-950 border border-slate-800">
-          <div class="font-bold text-amber-400 text-sm">⚠️ Beam Depth vs. HVAC Duct Clash (5 Whys)</div>
-          <p class="text-slate-300 mt-1">Agar Beam 650mm deep hai, toh AC duct nikalne ki jagah nahi bachegi! Isliye <span class="term-pill" onclick="openTerm('Clear Height')">Clear Height</span> aur BIM clash check GFC stage se pehle zaroori hai.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- 05 RECALL & 06 REPEAT -->
-    <section id="sec-recall" class="bg-slate-900 border border-slate-800 rounded-2xl p-4 space-y-2">
-      <span class="step-badge bg-pink-500/20 text-pink-300 border border-pink-500/30">05 RECALL & 06 REPEAT</span>
-      <p class="text-xs text-slate-300 leading-relaxed">
-        <strong>Lifecycle Chain:</strong> Ch 3 (<span class="term-pill" onclick="openTerm('SBC')">SBC</span> Soil Report) + Ch 9 (Architect's Grid) ➔ <strong>Ch 10 (RCC Skeleton)</strong> ➔ Sets ceiling height & roof load limits for <strong>Ch 11 (HVAC Chillers & Ducts)</strong>.
-      </p>
-    </section>
-
-  </main>
-
-  <!-- BOTTOM SHEET POPUP FOR TERMS (MOBILE NATIVE FEEL) -->
-  <div id="termSheet" class="fixed inset-x-0 bottom-0 z-40 bg-slate-900 border-t-2 border-sky-500 rounded-t-3xl p-5 shadow-2xl transform translate-y-full transition-transform duration-300">
-    <div class="flex items-start justify-between mb-2">
+  <!-- DETAILED BOTTOM SHEET POPUP FOR TAPPED TERMS -->
+  <div id="termSheet" class="fixed inset-x-0 bottom-0 z-40 bg-slate-900 border-t-2 border-sky-500 rounded-t-3xl p-5 shadow-2xl transform translate-y-full transition-transform duration-300 max-h-[85vh] overflow-y-auto">
+    <div class="flex items-start justify-between mb-3 sticky top-0 bg-slate-900 pb-2 border-b border-slate-800">
       <div>
-        <span id="termBadge" class="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-sky-500/20 text-sky-300">Concept</span>
-        <h3 id="termName" class="text-lg font-bold text-white mt-1">Select a Term</h3>
+        <span id="termBadge" class="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-sky-500/20 text-sky-300">D2O Service / Concept</span>
+        <h3 id="termName" class="text-lg font-bold text-white mt-1">Term Title</h3>
       </div>
-      <button onclick="closeTerm()" class="bg-slate-800 text-slate-300 rounded-full w-8 h-8 font-bold">✕</button>
+      <button onclick="closeTerm()" class="bg-slate-800 text-slate-300 rounded-full w-8 h-8 font-bold flex items-center justify-center">✕</button>
     </div>
-    <div class="space-y-2.5 text-xs">
-      <p id="termHinglish" class="text-slate-200 leading-relaxed text-sm"></p>
-      <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
-        <span class="text-slate-400 font-semibold">Owner & Document: </span>
-        <span id="termOwner" class="text-sky-300"></span>
+    <div class="space-y-3 text-xs pb-6">
+      <div>
+        <div class="text-[10px] text-sky-400 font-bold uppercase tracking-wider mb-1">Simple Hinglish & Technical Explanation:</div>
+        <p id="termHinglish" class="text-slate-100 text-sm leading-relaxed"></p>
       </div>
-      <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
-        <span class="text-slate-400 font-semibold">Meridian / D2O Impact: </span>
-        <span id="termImpact" class="text-emerald-300"></span>
+      <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 space-y-1">
+        <div class="text-[10px] text-amber-400 font-bold uppercase tracking-wider">Consultancy Workflow & Deliverables:</div>
+        <p id="termWorkflow" class="text-slate-300 leading-relaxed"></p>
+      </div>
+      <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 space-y-1">
+        <div class="text-[10px] text-emerald-400 font-bold uppercase tracking-wider">Design2Occupancy (D2O) Status:</div>
+        <p id="termClassification" class="text-emerald-300 font-medium"></p>
       </div>
     </div>
   </div>
 
   <script>
+    // Complete 25-Chapter Curriculum Database
     const chapters = [
       { id: 1, title: "Birth of a Building — Owner's Idea", status: "done" },
-      { id: 2, title: "Land and Development Rules", status: "done" },
-      { id: 3, title: "Site Investigation (Soil & SBC)", status: "done" },
-      { id: 4, title: "Development Potential (FAR/FSI)", status: "done" },
-      { id: 5, title: "Feasibility (CAPEX/OPEX/IRR)", status: "done" },
+      { id: 2, title: "Land Ownership, Title & Zoning Rules", status: "done" },
+      { id: 3, title: "Site Investigation & Soil SBC", status: "done" },
+      { id: 4, title: "Development Potential, FAR/FSI & Setbacks", status: "done" },
+      { id: 5, title: "Project Feasibility, CAPEX, OPEX & IRR", status: "done" },
       { id: 6, title: "Project Brief, OPR & BOD", status: "done" },
-      { id: 7, title: "Design Team & Process", status: "done" },
-      { id: 8, title: "Concept Design & Site Planning", status: "done" },
-      { id: 9, title: "Architectural Design & Drawings", status: "done" },
-      { id: 10, title: "Structural Design (Skeleton & Loads)", status: "active" },
-      { id: 11, title: "HVAC Systems (Chillers, AHU, FCU)", status: "next" },
-      { id: 12, title: "Electrical Systems & SLD", status: "locked" },
-      { id: 13, title: "Plumbing & Water Efficiency", status: "locked" },
-      { id: 14, title: "Fire & Life Safety (FLS)", status: "locked" }
+      { id: 7, title: "Design Team & Consultant Coordination", status: "done" },
+      { id: 8, title: "Concept Design & Site Massing", status: "done" },
+      { id: 9, title: "Architectural Plans, Sections & Elevations", status: "done" },
+      { id: 10, title: "Structural Design, Loads & Load Paths", status: "active" },
+      { id: 11, title: "HVAC Systems, Chillers & Energy Modelling", status: "next" },
+      { id: 12, title: "Electrical Systems, SLD & Backup Power", status: "locked" },
+      { id: 13, title: "Plumbing, Water Balance & STP Treatment", status: "locked" },
+      { id: 14, title: "Fire & Life Safety (FLS) & Smoke Management", status: "locked" },
+      { id: 15, title: "Building Envelope, Façade & Glazing Performance", status: "locked" },
+      { id: 16, title: "Statutory Approvals (EC, CTE, CTO & NOCs)", status: "locked" },
+      { id: 17, title: "Green Building Certifications (LEED, IGBC, GRIHA, WELL)", status: "locked" },
+      { id: 18, title: "CFD Simulations & Thermal Comfort Analysis", status: "locked" },
+      { id: 19, title: "Energy & Water Audits", status: "locked" },
+      { id: 20, title: "Electrical Safety & FLS Compliance Audits", status: "locked" },
+      { id: 21, title: "Life Cycle Assessment (LCA) & Embodied Carbon", status: "locked" },
+      { id: 22, title: "Commissioning (Cx), Testing & Balancing", status: "locked" },
+      { id: 23, title: "As-Built Handover & Facility Management", status: "locked" },
+      { id: 24, title: "Net-Zero Strategies, Retrofits & Optimization", status: "locked" },
+      { id: 25, title: "Professional Consultancy Pitching & Client Advisory", status: "locked" }
     ];
 
-    const terms = {
-      "Slab": { badge: "Horizontal Plate", hinglish: "Chhat ya farsh ki flat concrete plate jis par Meridian ke 1,000 log chalte hain. Yeh apna wajan Beams par daalti hai.", owner: "Structural Engineer • Slab Shuttering & Rebar Plan", impact: "Controls floor weight and thermal mass." },
-      "Beam": { badge: "Load Collector", hinglish: "Slab ke neeche ki horizontal patti jo Slab ka wajan side ke Columns tak le jaati hai.", owner: "Structural Engineer • Framing Plan", impact: "Deep beams reduce Clear Height for HVAC ducts!" },
-      "Column": { badge: "Vertical Pillar", hinglish: "Vertical pillar jo Beams se wajan lekar seedha neeche Foundation mein press (compress) karta hai.", owner: "Structural Engineer • Column Layout Drawing", impact: "Column grid decides basement car parking slots." },
-      "Shear Wall": { badge: "Lateral Core", hinglish: "Lift aur staircase ke chaaro taraf bani moti RCC wall jo Jaipur ki tez hawa aur bhukamp ke jhatke rokti hai.", owner: "Structural Engineer • Core Detail Plan", impact: "Protects G+8 glass facade from swaying." },
-      "Foundation": { badge: "Substructure / Neev", hinglish: "Zameen ke neeche ka chauda hissa (Footing/Raft) jo columns ka wajan mitti (SBC) mein phaila deta hai.", owner: "Structural + Geotech Engineer • Foundation Plan", impact: "Depends directly on Chapter 3 Soil SBC report." },
-      "RCC": { badge: "Material Secret", hinglish: "Reinforced Cement Concrete = Concrete (strong in compression/dabav) + Steel Rebar (strong in tension/khichav).", owner: "Structural Engineer • Bar Bending Schedule (BBS)", impact: "65%+ of Meridian's Embodied Carbon comes from RCC." },
-      "Load Path": { badge: "Core Principle", hinglish: "Wajan ke neeche utarne ka fixed raasta: Slab ➔ Beam ➔ Column ➔ Foundation ➔ Soil.", owner: "Structural Design Basis Report (DBR)", impact: "Never core-cut a beam without checking Load Path!" },
-      "Dead Load & Equipment Load": { badge: "IS 875 Part 1", hinglish: "Building ka permanent wajan + Terrace par rakhe Air-Cooled Chillers aur Solar PV ka operating weight.", owner: "MEP gives weight ➔ Structural designs roof slab", impact: "Crucial before placing heavy chillers on the roof." },
-      "Live Load": { badge: "IS 875 Part 2", hinglish: "Movable wajan: 1,000 occupants, desks, chairs, aur basement mein khadi gaadiyan.", owner: "Structural Engineer • Load Calculation Report", impact: "Server rooms & gyms require higher Live Load capacity." },
-      "Lateral Load": { badge: "IS 875 Pt 3 & IS 1893", hinglish: "Sideways force: Tez hawa (Wind) aur Earthquake (Seismic Zone II in Jaipur).", owner: "Structural Engineer • ETABS Model", impact: "Determines seismic bracing for MEP pipes and chillers." },
-      "Embodied Carbon": { badge: "LEED / LCA", hinglish: "Cement aur Steel banane mein jo CO2 emission hota hai (building chalne se pehle).", owner: "D2O Consultant • Whole Building LCA Report", impact: "Fly Ash & GGBS replacement earns LEED MR points." },
-      "Clear Height": { badge: "MEP Coordination", hinglish: "Finished floor se False Ceiling ya Beam ke neeche tak ki khuli height.", owner: "Architect + MEP • Coordinated RCP Drawing", impact: "Must leave 400-600mm above ceiling for AC ducts." },
-      "SBC": { badge: "From Chapter 3", hinglish: "Safe Bearing Capacity — Jaipur ki mitti 1 sq. meter mein kitna wajan bina dhase jhel sakti hai.", owner: "Geotechnical Engineer • Soil Report", impact: "Decides Isolated Footing vs. Raft Foundation." },
-      "BOQ": { badge: "Cost & Quantities", hinglish: "Bill of Quantities — Concrete (m³) aur Steel (MT) ki exact quantity list.", owner: "Quantity Surveyor (QS)", impact: "Main input file for D2O's LEED LCA software." },
-      "Architectural Drawings": { badge: "From Chapter 9", hinglish: "Architect ke banaye Floor Plans, Sections, aur Elevations.", owner: "Lead Architect", impact: "Starting input for Structural Engineer." },
-      "Structural Engineer": { badge: "Key Specialist", hinglish: "Woh engineer jo building ka RCC skeleton aur safety design karta hai.", owner: "Hired by Developer", impact: "Signs off on Structural Stability Certificate." }
+    // Complete Scope Tracks
+    const scopes = {
+      "d2o": {
+        html: `
+          <section class="bg-slate-900 border border-slate-800 rounded-2xl p-4 space-y-4">
+            <span class="step-badge bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">Official D2O Scope</span>
+            <h2 class="text-base font-bold text-white">Design2Occupancy Services Portfolio</h2>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              Design2Occupancy Services LLP (Jaipur) delivers end-to-end sustainability, green building consulting, and performance audits. Explore core verified services below:
+            </p>
+            <div class="space-y-3 text-xs">
+              <div class="p-3 bg-slate-950 rounded-xl border border-slate-800 space-y-1">
+                <div class="text-emerald-400 font-bold text-sm">1. Green Building Certification Consulting</div>
+                <p class="text-slate-300">Complete documentation and advisory for <span class="term-pill" onclick="openTerm('LEED')">LEED</span>, <span class="term-pill" onclick="openTerm('IGBC')">IGBC</span>, GRIHA, EDGE, and WELL standards across commercial real estate.</p>
+              </div>
+              <div class="p-3 bg-slate-950 rounded-xl border border-slate-800 space-y-1">
+                <div class="text-sky-400 font-bold text-sm">2. Whole-Building Energy Modelling</div>
+                <p class="text-slate-300">Advanced thermal simulations to optimize HVAC equipment sizing and demonstrate <span class="term-pill" onclick="openTerm('ECBC')">ECBC</span> compliance.</p>
+              </div>
+              <div class="p-3 bg-slate-950 rounded-xl border border-slate-800 space-y-1">
+                <div class="text-purple-400 font-bold text-sm">3. CFD & Daylighting Simulations</div>
+                <p class="text-slate-300">Evaluating indoor airflow, pedestrian wind comfort, and daylight autonomy via <span class="term-pill" onclick="openTerm('CFD')">CFD simulation</span>.</p>
+              </div>
+              <div class="p-3 bg-slate-950 rounded-xl border border-slate-800 space-y-1">
+                <div class="text-amber-400 font-bold text-sm">4. Mandatory & Performance Audits</div>
+                <p class="text-slate-300">Executing <span class="term-pill" onclick="openTerm('Energy Audits')">Energy Audits</span>, <span class="term-pill" onclick="openTerm('Water Audits')">Water Audits</span>, <span class="term-pill" onclick="openTerm('FLS Audits')">Fire & Life Safety Audits</span>, and <span class="term-pill" onclick="openTerm('Electrical Audits')">Electrical Safety Audits</span>.</p>
+              </div>
+              <div class="p-3 bg-slate-950 rounded-xl border border-slate-800 space-y-1">
+                <div class="text-pink-400 font-bold text-sm">5. LCA & Embodied Carbon Accounting</div>
+                <p class="text-slate-300">Conducting <span class="term-pill" onclick="openTerm('LCA')">Life Cycle Assessment</span> to evaluate <span class="term-pill" onclick="openTerm('Embodied Carbon')">Embodied Carbon</span> in structural materials.</p>
+              </div>
+            </div>
+          </section>
+        `
+      },
+      "lifecycle": {
+        html: `
+          <section class="bg-slate-900 border border-slate-800 rounded-2xl p-4 space-y-4">
+            <span class="step-badge bg-sky-500/20 text-sky-300 border border-sky-500/30">Chapters 1 to 10 Recap</span>
+            <h2 class="text-base font-bold text-white">Meridian Developments — Structural Stage</h2>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              Our 2-acre, G+8 commercial office project in Jaipur has crossed site surveys, architectural massing, and is currently at <span class="term-pill" onclick="openTerm('Structural Design')">Structural Design</span> (Chapter 10).
+            </p>
+            <div class="space-y-3 text-xs">
+              <div class="p-3 bg-slate-950 rounded-xl border border-slate-800 space-y-1">
+                <div class="text-sky-400 font-bold text-sm">Load Path Principle</div>
+                <p class="text-slate-300">Loads transfer from <span class="term-pill" onclick="openTerm('Beam')">Beams</span> and <span class="term-pill" onclick="openTerm('Column')">Columns</span> down to the <span class="term-pill" onclick="openTerm('Foundation')">Foundation</span> and soil bearing capacity (<span class="term-pill" onclick="openTerm('SBC')">SBC</span>).</p>
+              </div>
+            </div>
+          </section>
+        `
+      },
+      "compliance": {
+        html: `
+          <section class="bg-slate-900 border border-slate-800 rounded-2xl p-4 space-y-4">
+            <span class="step-badge bg-amber-500/20 text-amber-300 border border-amber-500/30">Statutory Track (Ch 16)</span>
+            <h2 class="text-base font-bold text-white">Clearances, Board Consents & Building Permits</h2>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              Managing regulatory obligations before construction and commercial operations begin.
+            </p>
+            <div class="space-y-3 text-xs">
+              <div class="p-3 bg-slate-950 rounded-xl border border-slate-800 space-y-1">
+                <div class="text-amber-400 font-bold text-sm">EC, CTE & CTO Workflow</div>
+                <p class="text-slate-300"><span class="term-pill" onclick="openTerm('EC')">Environmental Clearance</span> for large built-up areas, <span class="term-pill" onclick="openTerm('CTE')">Consent to Establish</span> prior to construction, and <span class="term-pill" onclick="openTerm('CTO')">Consent to Operate</span> before employee occupancy.</p>
+              </div>
+            </div>
+          </section>
+        `
+      },
+      "simulations": {
+        html: `
+          <section class="bg-slate-900 border border-slate-800 rounded-2xl p-4 space-y-4">
+            <span class="step-badge bg-purple-500/20 text-purple-300 border border-purple-500/30">Simulations & Audits (Ch 18-22)</span>
+            <h2 class="text-base font-bold text-white">Engineering Simulations & Performance Testing</h2>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              Verifying design efficiency and building physics through advanced software and field diagnostics.
+            </p>
+            <div class="space-y-3 text-xs">
+              <div class="p-3 bg-slate-950 rounded-xl border border-slate-800 space-y-1">
+                <div class="text-purple-400 font-bold text-sm">Commissioning & Testing</div>
+                <p class="text-slate-300"><span class="term-pill" onclick="openTerm('Commissioning')">Commissioning (Cx)</span> ensures MEPF systems operate at peak design efficiency, backed by rigorous safety audits.</p>
+              </div>
+            </div>
+          </section>
+        `
+      }
     };
 
-    function renderChapters() {
+    // Detailed Terms Database
+    const terms = {
+      "LEED": {
+        badge: "D2O Core Service • Green Certification",
+        hinglish: "Leadership in Energy and Environmental Design — USGBC ka global green building rating system.",
+        workflow: "Registration, credit documentation, energy modelling, and final certification review.",
+        classification: "Verified D2O Core Offering"
+      },
+      "IGBC": {
+        badge: "D2O Core Service • Indian Rating",
+        hinglish: "Indian Green Building Council rating system tailored for Indian climatic conditions.",
+        workflow: "Documentation across mandatory and optional green credits.",
+        classification: "Verified D2O Core Offering"
+      },
+      "ECBC": {
+        badge: "D2O Core Service • Energy Compliance",
+        hinglish: "Energy Conservation Building Code — Commercial buildings ke liye mandatory energy standard.",
+        workflow: "Evaluated via architectural drawing review and compliance software simulation.",
+        classification: "Verified D2O Core Offering"
+      },
+      "CFD": {
+        badge: "D2O Core Service • Advanced Simulation",
+        hinglish: "Computational Fluid Dynamics — Computer par hawa ke bahav ki physics test karna.",
+        workflow: "Generates 3D velocity and pressure contours to optimize natural ventilation.",
+        classification: "Verified D2O Core Offering"
+      },
+      "Energy Audits": {
+        badge: "D2O Core Service • Operational Audit",
+        hinglish: "Building ki bijli khapat ko measure karke waste identify karna.",
+        workflow: "Portable power meters and thermal loggers deployed on site.",
+        classification: "Verified D2O Core Offering"
+      },
+      "Water Audits": {
+        badge: "D2O Core Service • Sustainability Audit",
+        hinglish: "Building mein paani kahan use ho raha hai aur kahan waste ho raha hai iska audit.",
+        workflow: "Water meter logging and fixture flow-rate testing.",
+        classification: "Verified D2O Core Offering"
+      },
+      "FLS Audits": {
+        badge: "D2O Core Service • Safety Audit",
+        hinglish: "Fire & Life Safety Audit — Fire alarms, sprinklers, aur exit staircases ki safety check karna.",
+        workflow: "Physical inspection against NBC guidelines.",
+        classification: "Verified D2O Core Offering"
+      },
+      "Electrical Audits": {
+        badge: "D2O Core Service • Safety Audit",
+        hinglish: "Electrical Safety Audit — Transformers, panels, aur earthing ki safety check karna.",
+        workflow: "Thermographic scanning and earth pit resistance testing.",
+        classification: "Verified D2O Core Offering"
+      },
+      "LCA": {
+        badge: "D2O Core Service • Carbon Accounting",
+        hinglish: "Life Cycle Assessment — Building banane se todne tak total carbon footprint calculate karna.",
+        workflow: "Inventorying material quantities using LCA software.",
+        classification: "Verified D2O Core Offering"
+      },
+      "Embodied Carbon": {
+        badge: "D2O Concept • Decarbonization",
+        hinglish: "Concrete aur steel banane mein jo carbon release hota hai.",
+        workflow: "Calculated via structural BOQ and emission factors.",
+        classification: "Verified D2O Core Offering"
+      },
+      "EC": {
+        badge: "Statutory Clearance",
+        hinglish: "Environmental Clearance — MoEFCC ya SEIAA dwara bade projects ko diya jane wala approval.",
+        workflow: "Form-1 submission and EIA study for built-up areas >20,000 sq.m.",
+        classification: "Statutory / Authorized Partner"
+      },
+      "CTE": {
+        badge: "Statutory Consent",
+        hinglish: "Consent to Establish — State Pollution Control Board se construction se pehle ki anugya.",
+        workflow: "Submitted prior to breaking ground with STP design.",
+        classification: "Technical Documentation Support"
+      },
+      "CTO": {
+        badge: "Statutory Licence",
+        hinglish: "Consent to Operate — Building complete hone par pollution board se liya jane wala licence.",
+        workflow: "Issued after physical inspection of STP and DG stack emissions.",
+        classification: "Technical Filing & Audit Support"
+      },
+      "Structural Design": {
+        badge: "Engineering Stage (Ch 10)",
+        hinglish: "Building ki haddiyan (Slab, Beam, Column, Foundation) design karna.",
+        workflow: "ETABS analysis and GFC structural drawings.",
+        classification: "Structural Consultant Scope"
+      },
+      "Beam": { badge: "Structure", hinglish: "Horizontal concrete member jo slab ka wajan columns tak le jata hai.", workflow: "Collects slab loads.", classification: "Structural Scope" },
+      "Column": { badge: "Structure", hinglish: "Vertical pillar jo wajan foundation tak press karta hai.", workflow: "Transfers axial loads.", classification: "Structural Scope" },
+      "Foundation": { badge: "Structure", hinglish: "Zameen ke neeche ka hissa jo wajan mitti mein phailata hai.", workflow: "Spreads load based on SBC.", classification: "Structural Scope" },
+      "SBC": { badge: "Geotech", hinglish: "Safe Bearing Capacity — mitti ki wajan jhelne ki taakat.", workflow: "Soil testing report.", classification: "Geotechnical Scope" },
+      "Commissioning": { badge: "QA/QC", hinglish: "Chillers aur AHUs ko test karke verify karna ki woh design ke hissaab se chal rahe hain.", workflow: "Pre-handover functional testing.", classification: "Verified D2O / Cx Partner" }
+    };
+
+    function renderChaptersList() {
       document.getElementById('chapterList').innerHTML = chapters.map(ch => {
         const icon = ch.status === 'done' ? '✅' : ch.status === 'active' ? '🔵' : '🔒';
         const style = ch.status === 'active' ? 'bg-sky-500/20 border border-sky-500/40 text-white font-bold' : 'text-slate-400';
-        return `<div class="px-3 py-2 rounded-xl text-xs flex justify-between items-center ${style}">
+        return `<div class="px-3 py-2 rounded-xl flex justify-between items-center ${style}">
           <span class="truncate">${ch.id}. ${ch.title}</span><span>${icon}</span>
         </div>`;
       }).join('');
     }
 
+    function switchScope(key) {
+      document.querySelectorAll('.scope-tab').forEach(btn => {
+        btn.className = "scope-tab shrink-0 px-3 py-1 rounded-lg bg-slate-800 text-slate-300 text-xs font-bold border border-slate-700";
+      });
+      document.getElementById(`tab-${key}`).className = "scope-tab shrink-0 px-3 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 text-xs font-bold border border-emerald-500/40";
+      document.getElementById('mainContent').innerHTML = scopes[key].html;
+    }
+
     function toggleDrawer() {
-      document.getElementById('chapterDrawer').classList.toggle('hidden');
+      document.getElementById('masterDrawer').classList.toggle('hidden');
     }
 
     function openTerm(key) {
@@ -275,8 +329,8 @@
       document.getElementById('termName').textContent = key;
       document.getElementById('termBadge').textContent = item.badge;
       document.getElementById('termHinglish').textContent = item.hinglish;
-      document.getElementById('termOwner').textContent = item.owner;
-      document.getElementById('termImpact').textContent = item.impact;
+      document.getElementById('termWorkflow').textContent = item.workflow;
+      document.getElementById('termClassification').textContent = item.classification;
       document.getElementById('termSheet').classList.remove('translate-y-full');
     }
 
@@ -284,7 +338,8 @@
       document.getElementById('termSheet').classList.add('translate-y-full');
     }
 
-    renderChapters();
+    renderChaptersList();
+    switchScope('d2o');
   </script>
 </body>
 </html>
