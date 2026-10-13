@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ATLAS — Meridian Visual Story Portal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { background-color: #0b0f19; color: #e2e8f0; font-family: 'Inter', system-ui, sans-serif; }
+    .term-pill {
+      display: inline-flex; align-items: center; gap: 4px;
+      background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.4);
+      color: #38bdf8; padding: 1px 8px; border-radius: 999px; font-weight: 600;
+      cursor: pointer; transition: all 0.2s; font-size: 0.9em;
+    }
+    .term-pill:hover { background: #38bdf8; color: #0b0f19; transform: translateY(-1px); }
+    .step-badge {
+      font-size: 0.7rem; letter-spacing: 0.1em; font-weight: 800;
+      padding: 4px 10px; border-radius: 6px; text-transform: uppercase;
+    }
+    .svg-hotspot { cursor: pointer; transition: all 0.25s ease; }
+    .svg-hotspot:hover { filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.8)); opacity: 0.9; }
+  </style>
+</head>
+<body class="h-screen flex overflow-hidden">
+
+  <!-- LEFT SIDEBAR: CHAPTER ROADMAP & MERIDIAN PASSPORT -->
+  <aside class="w-80 bg-slate-900 border-r border-slate-800 flex flex-col h-full shrink-0">
+    <div class="p-5 border-b border-slate-800">
+      <div class="flex items-center justify-between">
+        <span class="text-xs font-bold tracking-widest text-sky-400 uppercase">ATLAS Visual Engine</span>
+        <span class="text-xs bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full border border-emerald-500/30">D2O Edition</span>
+      </div>
+      <h1 class="text-xl font-bold text-white mt-1">Meridian Developments</h1>
+      <p class="text-xs text-slate-400 mt-0.5">Jaipur • 2 Acres • G+8 Office • 1,000 Pax</p>
+    </div>
+
+    <!-- CHAPTER LIST -->
+    <div class="p-3 text-xs font-semibold text-slate-400 uppercase tracking-wider">Curriculum Chapters</div>
+    <nav id="chapterList" class="flex-1 overflow-y-auto px-3 space-y-1 pb-6"></nav>
+
+    <!-- MERIDIAN LIVE SPEC FOOTER -->
+    <div class="p-4 bg-slate-950/80 border-t border-slate-800 text-xs space-y-1.5">
+      <div class="font-bold text-slate-300">Live Project Assumptions:</div>
+      <div class="flex justify-between text-slate-400"><span>HVAC:</span><span class="text-slate-200">Air-Cooled Chiller + AHU/FCU</span></div>
+      <div class="flex justify-between text-slate-400"><span>Structure:</span><span class="text-sky-400">RCC Frame + Shear Core</span></div>
+      <div class="flex justify-between text-slate-400"><span>Seismic Zone:</span><span class="text-slate-200">Zone II (Jaipur, IS 1893)</span></div>
+    </div>
+  </aside>
+
+  <!-- CENTER: VISUAL STORY STAGE -->
+  <main class="flex-1 flex flex-col h-full overflow-hidden">
+    <!-- TOP BAR: 6-STEP LEARNING CYCLE NAVIGATION -->
+    <header class="bg-slate-900/70 backdrop-blur border-b border-slate-800 px-8 py-4 flex items-center justify-between">
+      <div>
+        <div id="chapterSub" class="text-xs text-sky-400 font-semibold uppercase tracking-wider">Chapter 10 • Active Module</div>
+        <h2 id="chapterTitle" class="text-2xl font-bold text-white">Structural Design — The Building's Skeleton</h2>
+      </div>
+      <div class="flex gap-2" id="cycleTabs">
+        <button onclick="scrollToSection('sec-see')" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-sky-500/20 text-xs font-bold text-sky-300 border border-slate-700">01 SEE</button>
+        <button onclick="scrollToSection('sec-understand')" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-sky-500/20 text-xs font-bold text-sky-300 border border-slate-700">02 UNDERSTAND</button>
+        <button onclick="scrollToSection('sec-learn')" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-sky-500/20 text-xs font-bold text-sky-300 border border-slate-700">03 LEARN</button>
+        <button onclick="scrollToSection('sec-apply')" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-sky-500/20 text-xs font-bold text-sky-300 border border-slate-700">04 APPLY</button>
+        <button onclick="scrollToSection('sec-recall')" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-sky-500/20 text-xs font-bold text-sky-300 border border-slate-700">05 RECALL</button>
+        <button onclick="scrollToSection('sec-repeat')" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-sky-500/20 text-xs font-bold text-sky-300 border border-slate-700">06 REPEAT</button>
+      </div>
+    </header>
+
+    <!-- CONTENT + RIGHT INSPECTOR DRAWER -->
+    <div class="flex-1 flex overflow-hidden">
+      <!-- STORY CARDS SCROLL AREA -->
+      <div id="storyContainer" class="flex-1 overflow-y-auto p-8 space-y-8">
+
+        <!-- 01 SEE: INTERACTIVE DIAGRAM + SCENE -->
+        <section id="sec-see" class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
+          <div class="flex items-center justify-between mb-4">
+            <span class="step-badge bg-amber-500/20 text-amber-300 border border-amber-500/30">01 • SEE (Visual Scene & Interactive Skeleton)</span>
+            <span class="text-xs text-slate-400">Click any building part in the diagram or blue term pill to inspect</span>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
+            <!-- STORY SCENE -->
+            <div class="space-y-4">
+              <h3 class="text-lg font-bold text-white">Scene: Meridian Conference Room, Jaipur</h3>
+              <p class="text-slate-300 leading-relaxed text-sm">
+                Chapter 9 mein Architect ne Meridian ki G+8 glass building ke <span class="term-pill" onclick="openTerm('Architectural Drawings')">Architectural Drawings</span> table par rakh diye.
+                Ab entry hoti hai <span class="term-pill" onclick="openTerm('Structural Engineer')">Structural Engineer</span> ki.
+              </p>
+              <div class="p-4 rounded-xl bg-slate-950 border-l-4 border-amber-400 text-sm text-slate-200 italic">
+                "Architect sahab, aapne Terrace par bhari Air-Cooled Chillers rakh diye, 8 floors par 1,000 log bitha diye, aur Ground Floor lobby mein sundarta ke liye pillars hata diye. Toh yeh hazaaron ton ka wajan hawa mein kaise rukega?"
+              </div>
+              <p class="text-slate-400 text-xs">
+                👉 <strong>Interactive Task:</strong> Click on the Roof Chiller, Slab, Beam, Column, Shear Wall, or Foundation on the visual diagram to see how each part handles the load!
+              </p>
+            </div>
+
+            <!-- INTERACTIVE SVG BUILDING SKELETON -->
+            <div class="bg-slate-950 rounded-xl p-4 border border-slate-800 flex flex-col items-center">
+              <svg viewBox="0 0 420 320" class="w-full max-w-md">
+                <!-- Sky / Ground -->
+                <rect x="0" y="250" width="420" height="70" fill="#1e293b" />
+                <line x1="0" y1="250" x2="420" y2="250" stroke="#475569" stroke-width="2" />
+
+                <!-- Roof Chiller (Equipment Load) -->
+                <g class="svg-hotspot" onclick="openTerm('Dead Load & Equipment Load')">
+                  <rect x="115" y="22" width="75" height="28" rx="4" fill="#f59e0b" />
+                  <text x="152" y="40" text-anchor="middle" fill="#0b0f19" font-size="10" font-weight="bold">CHILLER (DL)</text>
+                </g>
+
+                <!-- Wind Load Arrows -->
+                <g class="svg-hotspot" onclick="openTerm('Lateral Load')">
+                  <path d="M20 90 L75 90 M65 84 L75 90 L65 96" stroke="#38bdf8" stroke-width="3" fill="none"/>
+                  <path d="M20 150 L75 150 M65 144 L75 150 L65 156" stroke="#38bdf8" stroke-width="3" fill="none"/>
+                  <text x="45" y="75" text-anchor="middle" fill="#38bdf8" font-size="9" font-weight="bold">WIND / SEISMIC</text>
+                </g>
+
+                <!-- Shear Core Wall -->
+                <g class="svg-hotspot" onclick="openTerm('Shear Wall')">
+                  <rect x="255" y="50" width="45" height="200" fill="#6366f1" opacity="0.85" />
+                  <text x="277" y="155" text-anchor="middle" fill="#ffffff" font-size="10" font-weight="bold" transform="rotate(-90 277 155)">SHEAR WALL CORE</text>
+                </g>
+
+                <!-- Floor Slabs -->
+                <g class="svg-hotspot" onclick="openTerm('Slab')">
+                  <rect x="90" y="50" width="240" height="10" fill="#38bdf8" />
+                  <rect x="90" y="115" width="240" height="10" fill="#38bdf8" />
+                  <rect x="90" y="180" width="240" height="10" fill="#38bdf8" />
+                  <text x="165" y="110" fill="#7dd3fc" font-size="10" font-weight="bold">SLAB (Floor Plate)</text>
+                </g>
+
+                <!-- Horizontal Beams -->
+                <g class="svg-hotspot" onclick="openTerm('Beam')">
+                  <rect x="90" y="60" width="240" height="8" fill="#fb7185" />
+                  <rect x="90" y="125" width="240" height="8" fill="#fb7185" />
+                  <rect x="90" y="190" width="240" height="8" fill="#fb7185" />
+                  <text x="165" y="145" fill="#fda4af" font-size="10" font-weight="bold">BEAM (Under Slab)</text>
+                </g>
+
+                <!-- Vertical Columns -->
+                <g class="svg-hotspot" onclick="openTerm('Column')">
+                  <rect x="95" y="50" width="14" height="200" fill="#34d399" />
+                  <rect x="195" y="50" width="14" height="200" fill="#34d399" />
+                  <rect x="310" y="50" width="14" height="200" fill="#34d399" />
+                  <text x="135" y="225" fill="#6ee7b7" font-size="10" font-weight="bold">COLUMNS</text>
+                </g>
+
+                <!-- Foundation / Footings in Soil -->
+                <g class="svg-hotspot" onclick="openTerm('Foundation')">
+                  <polygon points="75,285 130,285 115,250 88,250" fill="#a855f7" />
+                  <polygon points="175,285 230,285 215,250 188,250" fill="#a855f7" />
+                  <rect x="245" y="250" width="90" height="35" fill="#a855f7" />
+                  <text x="210" y="305" text-anchor="middle" fill="#e9d5ff" font-size="11" font-weight="bold">FOUNDATION / RAFT IN SOIL (SBC)</text>
+                </g>
+              </svg>
+            </div>
+          </div>
+        </section>
+
+        <!-- 02 UNDERSTAND: HINGLISH STORY & MINTO PYRAMID -->
+        <section id="sec-understand" class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+          <span class="step-badge bg-sky-500/20 text-sky-300 border border-sky-500/30">02 • UNDERSTAND (Minto Pyramid + Story Analogy)</span>
+          <div class="p-4 bg-sky-950/40 border border-sky-500/30 rounded-xl">
+            <div class="text-xs font-bold text-sky-400 uppercase">Minto Main Answer First:</div>
+            <p class="text-sm text-white mt-1">
+              Meridian ki G+8 building isliye safe khadi rehti hai kyunki uska <span class="term-pill" onclick="openTerm('RCC')">RCC</span> skeleton har floor ke wajan ko ek fixed chain (<span class="term-pill" onclick="openTerm('Load Path')">Load Path</span>) se zameen mein bhejta hai:
+              <strong>Slab → Beam → Column → Foundation → Soil.</strong>
+            </p>
+          </div>
+          <p class="text-sm text-slate-300 leading-relaxed">
+            <strong>Hinglish Tray Analogy:</strong> Socho aapne haath mein ek bhari tray pakdi hai. Tray ki plate aapki <span class="term-pill" onclick="openTerm('Slab')">Slab</span> hai. Aapke haath aur baazu jo us tray ko neeche se sahara de rahe hain woh <span class="term-pill" onclick="openTerm('Beam')">Beam</span> hain. Aapki reedh ki haddi (spine) aur pair jo poora wajan seedha neeche le jaate hain woh <span class="term-pill" onclick="openTerm('Column')">Column</span> hain. Aur aapke chaurhe joote jo aapko mitti mein dhasne se bachate hain woh <span class="term-pill" onclick="openTerm('Foundation')">Foundation</span> hain!
+          </p>
+        </section>
+
+        <!-- 03 LEARN: MECE BREAKDOWN -->
+        <section id="sec-learn" class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+          <span class="step-badge bg-purple-500/20 text-purple-300 border border-purple-500/30">03 • LEARN (MECE Technical Breakdown & IS Codes)</span>
+          <h3 class="text-lg font-bold text-white">MECE Breakdown of Building Loads (IS 875 & IS 1893)</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+            <div class="p-4 rounded-xl bg-slate-950 border border-slate-800">
+              <div class="text-amber-400 font-bold mb-1">1. Dead Load (IS 875 Part 1)</div>
+              <p class="text-slate-300 text-xs leading-relaxed">Building ka apna permanent wajan: Concrete slabs, beams, brick walls, floor tiles, aur छत par rakha heavy <span class="term-pill" onclick="openTerm('Dead Load & Equipment Load')">Chiller</span>.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-slate-950 border border-slate-800">
+              <div class="text-emerald-400 font-bold mb-1">2. Live Load (IS 875 Part 2)</div>
+              <p class="text-slate-300 text-xs leading-relaxed">Movable wajan: Meridian ke 1,000 employees, unke desks, chairs, aur basement mein khadi gaadiyan (<span class="term-pill" onclick="openTerm('Live Load')">Live Load</span>).</p>
+            </div>
+            <div class="p-4 rounded-xl bg-slate-950 border border-slate-800">
+              <div class="text-sky-400 font-bold mb-1">3. Lateral Load (IS 875 Pt 3 / IS 1893)</div>
+              <p class="text-slate-300 text-xs leading-relaxed">Side se lagne wala dhakka: Jaipur ki tez aandhi (Wind) aur Earthquake (Seismic Zone II), jise <span class="term-pill" onclick="openTerm('Shear Wall')">Shear Wall</span> rokti hai.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 04 APPLY: MERIDIAN & D2O CONSULTANCY -->
+        <section id="sec-apply" class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+          <span class="step-badge bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">04 • APPLY (D2O Consultancy & Real Workflow)</span>
+          <h3 class="text-lg font-bold text-white">Why a D2O Green Building Consultant Must Check Structure</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+            <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-2">
+              <div class="font-bold text-emerald-400 text-sm">1. LEED LCA & Embodied Carbon</div>
+              <p class="text-slate-300">Building ke total <span class="term-pill" onclick="openTerm('Embodied Carbon')">Embodied Carbon</span> ka 65%+ hissa Concrete aur Steel mein hota hai. D2O consultant <span class="term-pill" onclick="openTerm('BOQ')">BOQ</span> check karke Cement mein Fly Ash / GGBS mix suggest karta hai for LEED MR credits.</p>
+            </div>
+            <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-2">
+              <div class="font-bold text-amber-400 text-sm">2. Beam Depth vs. HVAC Duct Clash (5 Whys)</div>
+              <p class="text-slate-300">Agar floor height 4.0m hai aur Beam 650mm deep hai, toh AC duct nikalne ki jagah nahi bachegi! Site par beam core-cutting se bachne ke liye design stage par <span class="term-pill" onclick="openTerm('Clear Height')">Clear Height</span> coordination zaroori hai.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 05 RECALL & 06 REPEAT -->
+        <section id="sec-recall" class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-3">
+          <span class="step-badge bg-pink-500/20 text-pink-300 border border-pink-500/30">05 • RECALL & 06 • REPEAT (Lifecycle Connection)</span>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            <strong>Chain of Cause & Effect:</strong> Chapter 3 (<span class="term-pill" onclick="openTerm('SBC')">SBC</span> from Soil Report) + Chapter 9 (Architect's Grid) ➔ <strong>Chapter 10 (RCC Skeleton & Beam Depth)</strong> ➔ Decides Ceiling Space & Roof Load limit for <strong>Chapter 11 (HVAC Chillers & Ducting)</strong>.
+          </p>
+        </section>
+
+      </div>
+
+      <!-- RIGHT PANEL: INTERACTIVE CONCEPT & TERM INSPECTOR -->
+      <aside class="w-96 bg-slate-900 border-l border-slate-800 p-6 flex flex-col justify-between shrink-0">
+        <div>
+          <div class="text-xs font-bold uppercase tracking-wider text-sky-400 mb-2">Interactive Concept Card</div>
+          <div id="termCard" class="bg-slate-950 border border-slate-800 rounded-2xl p-5 space-y-4">
+            <h3 id="termName" class="text-xl font-bold text-white">Click any Blue Term or Diagram Part</h3>
+            <div id="termBadge" class="inline-block text-xs px-2.5 py-0.5 rounded bg-sky-500/20 text-sky-300">Chapter 10 Concept</div>
+            <div class="space-y-3 text-sm">
+              <div>
+                <div class="text-xs text-slate-400 uppercase font-semibold">Simple Hinglish Meaning:</div>
+                <p id="termHinglish" class="text-slate-200 mt-1">Kisi bhi blue highlighted term ya building diagram ke hisse par click karo—uska poora Hinglish explanation, document, aur D2O consultancy role yahan khulega.</p>
+              </div>
+              <div>
+                <div class="text-xs text-slate-400 uppercase font-semibold">Who is Responsible & Which Document?</div>
+                <p id="termOwner" class="text-slate-300 mt-1">Structural Consultant • Structural Framing Plan / GFC Drawings</p>
+              </div>
+              <div>
+                <div class="text-xs text-slate-400 uppercase font-semibold">Meridian / D2O Impact:</div>
+                <p id="termImpact" class="text-emerald-300 mt-1">Affects safety, ceiling height for MEP ducts, and Embodied Carbon (LCA).</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 text-xs text-slate-400 space-y-1">
+          <div class="font-bold text-white">How to Publish This on a Link:</div>
+          <p>1. Save this code as <code>index.html</code></p>
+          <p>2. Drag & drop into <strong>app.netlify.com/drop</strong> or push to GitHub Pages.</p>
+          <p>3. Ask ATLAS for the next chapter JSON to append!</p>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <script>
+    const chapters = [
+      { id: 1, title: "Birth of a Building — Owner's Idea", status: "done" },
+      { id: 2, title: "Land and Development Rules", status: "done" },
+      { id: 3, title: "Site Investigation (Soil & SBC)", status: "done" },
+      { id: 4, title: "Development Potential (FAR/FSI)", status: "done" },
+      { id: 5, title: "Feasibility (CAPEX/OPEX/IRR)", status: "done" },
+      { id: 6, title: "Project Brief, OPR & BOD", status: "done" },
+      { id: 7, title: "Design Team & Process", status: "done" },
+      { id: 8, title: "Concept Design & Site Planning", status: "done" },
+      { id: 9, title: "Architectural Design & Drawings", status: "done" },
+      { id: 10, title: "Structural Design (Skeleton & Loads)", status: "active" },
+      { id: 11, title: "HVAC Systems (Chillers, AHU, FCU)", status: "next" },
+      { id: 12, title: "Electrical Systems & SLD", status: "locked" },
+      { id: 13, title: "Plumbing & Water Efficiency", status: "locked" },
+      { id: 14, title: "Fire & Life Safety (FLS)", status: "locked" },
+      { id: 15, title: "Building Envelope & Glazing", status: "locked" }
+    ];
+
+    const terms = {
+      "Slab": {
+        badge: "Horizontal Structural Element",
+        hinglish: "Chhat ya farsh ki flat concrete plate jis par Meridian ke 1,000 log chalte hain aur apna furniture rakhte hain. Yeh apna wajan chaaro taraf ke Beams par daalti hai.",
+        owner: "Structural Engineer • Slab Reinforcement & Shuttering Drawings",
+        impact: "Slab thickness affects total concrete volume (Embodied Carbon) and thermal mass."
+      },
+      "Beam": {
+        badge: "Horizontal Load Collector",
+        hinglish: "Slab ke neeche dikhne wali horizontal concrete-steel patti. Yeh Slab se wajan lekar side ke Columns tak pahunchati hai.",
+        owner: "Structural Engineer • Floor Framing Plan",
+        impact: "Deep beams reduce Clear Ceiling Height! If beams are too deep, Meridian's HVAC ducts won't fit above the false ceiling."
+      },
+      "Column": {
+        badge: "Vertical Compression Member",
+        hinglish: "Vertical pillar jo har floor ke Beams se wajan pakadta hai aur seedha neeche Foundation mein transfer karta hai. Ismein heavy compression force hoti hai.",
+        owner: "Structural Engineer • Column Layout & Schedule Drawing",
+        impact: "Column positions (Grid) decide basement car parking layout and office open-plan flexibility."
+      },
+      "Shear Wall": {
+        badge: "Lateral Stability Core",
+        hinglish: "Lift aur staircase ke chaaro taraf bani moti RCC deewar. Jab Jaipur mein tez aandhi (Wind Load) ya bhukamp (Seismic Load) aata hai, toh yeh G+8 building ko hilne se rokti hai.",
+        owner: "Structural Engineer • Core Wall Detail Drawings",
+        impact: "Usually wraps around the Lift & Fire Staircase core in commercial Grade-A offices."
+      },
+      "Foundation": {
+        badge: "Substructure / Neev",
+        hinglish: "Zameen ke neeche ka sabse chauda hissa (Footing ya Raft) jo columns ke saare wajan ko mitti (Soil) mein safely phaila deta hai taaki building dhase nahi.",
+        owner: "Structural + Geotechnical Engineer • Foundation Excavation & Footing Plan",
+        impact: "Designed strictly based on Chapter 3's SBC (Soil Bearing Capacity) report."
+      },
+      "RCC": {
+        badge: "Material Principle",
+        hinglish: "Reinforced Cement Concrete. Concrete dabav (Compression) mein strong hai par khichav (Tension) mein toot jata hai. Steel sariya Tension mein strong hai. Dono milkar RCC bante hain!",
+        owner: "Structural Engineer & Site QA/QC Team • Bar Bending Schedule (BBS)",
+        impact: "Accounts for 60-70% of Meridian's Embodied Carbon in LEED LCA studies."
+      },
+      "Load Path": {
+        badge: "Core Structural Principle",
+        hinglish: "Woh continuous raasta jisse wajan upar se zameen tak jata hai: Slab ➔ Beam ➔ Column ➔ Foundation ➔ Soil. Agar ek bhi link toota, toh building unsafe ho jayegi.",
+        owner: "Structural Engineer • Structural Design Basis Report (DBR)",
+        impact: "Never cut a beam or column for MEP pipes without checking the Load Path!"
+      },
+      "Dead Load & Equipment Load": {
+        badge: "IS 875 (Part 1)",
+        hinglish: "Building ka permanent wajan + Terrace par rakhe Air-Cooled Chillers aur Solar Panels ka wajan. Chiller ka operating weight (paani bhare hone ke baad) roof slab design mein judna zaroori hai.",
+        owner: "MEP Consultant gives weight ➔ Structural Engineer designs slab",
+        impact: "If D2O/MEP upgrades chiller capacity later, roof structural capacity must be verified first."
+      },
+      "Live Load": {
+        badge: "IS 875 (Part 2)",
+        hinglish: "Aane-jaane wala wajan: 1,000 employees, chairs, movable partitions. Office floors ke liye IS Code ke hisaab se minimum kN/m² assume kiya jata hai.",
+        owner: "Structural Engineer • Structural Design Report",
+        impact: "High-density areas (Server Room, Compactus Storage, Gym) need higher Live Load design!"
+      },
+      "Lateral Load": {
+        badge: "IS 875 (Part 3) & IS 1893",
+        hinglish: "Sideways dhakka: Tez hawa (Wind) aur Earthquake (Seismic). Jaipur Seismic Zone II mein aata hai.",
+        owner: "Structural Engineer • ETABS / STAAD Dynamic Analysis",
+        impact: "Affects facade glass thickness (wind pressure) and seismic bracing of suspended HVAC ducts/chillers."
+      },
+      "Embodied Carbon": {
+        badge: "Green Building / LCA",
+        hinglish: "Building chalne se pehle, uske materials (Cement, Steel, Glass) banane aur transport karne mein jo CO2 nikalti hai.",
+        owner: "D2O Sustainability Consultant • Whole-Building LCA Report (LEED MRc1)",
+        impact: "Replacing 30% OPC cement with Fly Ash or GGBS in Meridian's structure earns LEED points."
+      },
+      "Clear Height": {
+        badge: "Spatial Coordination",
+        hinglish: "Farsh (Finished Floor) se lekar False Ceiling ya Beam ke sabse nichle hisse tak ki khuli unchai.",
+        owner: "Architect + Structural + MEP Coordinator • Coordinated Reflected Ceiling Plan (RCP)",
+        impact: "Grade-A offices need at least 2.7m to 3.0m clear height so occupants don't feel claustrophobic."
+      },
+      "SBC": {
+        badge: "From Chapter 3 (Geotech)",
+        hinglish: "Safe Bearing Capacity of Soil — Jaipur ki site ki mitti 1 square meter mein kitna wajan bina dhase jhel sakti hai (e.g., 200 kN/m²).",
+        owner: "Geotechnical Consultant • Soil Investigation Report",
+        impact: "Low SBC = expensive Pile or Raft foundation; High SBC = economical Isolated Footings."
+      },
+      "BOQ": {
+        badge: "Procurement & Cost",
+        hinglish: "Bill of Quantities — Ek exact list jismein likha hota hai ki Meridian mein kitne Cubic Meter (m³) concrete aur kitne Metric Ton (MT) steel lagega.",
+        owner: "Quantity Surveyor (QS) / Cost Consultant",
+        impact: "Used by D2O for LEED Materials & Resources (MR) calculations and LCA modeling."
+      },
+      "Architectural Drawings": {
+        badge: "From Chapter 9",
+        hinglish: "Architect ke banaye Floor Plans, Sections, aur Elevations jo dikhate hain ki rooms, windows, aur corridors kahan honge.",
+        owner: "Lead Architect",
+        impact: "Base input for the Structural Engineer to place columns without blocking doors or parking."
+      },
+      "Structural Engineer": {
+        badge: "Key Project Stakeholder",
+        hinglish: "Woh specialist engineer jo building ki haddiyan (Slab, Beam, Column, Foundation) calculate aur design karta hai taaki building har load mein safe rahe.",
+        owner: "Appointed by Developer (Meridian Developments)",
+        impact: "Signs off on Structural Stability Certificate required for local authority Building Plan Approval."
+      }
+    };
+
+    function renderChapters() {
+      const container = document.getElementById('chapterList');
+      container.innerHTML = chapters.map(ch => {
+        const badge = ch.status === 'done'
+          ? '<span class="text-emerald-400">✓</span>'
+          : ch.status === 'active'
+          ? '<span class="w-2 h-2 rounded-full bg-sky-400 animate-ping"></span>'
+          : '<span class="text-slate-600">•</span>';
+        const bg = ch.status === 'active'
+          ? 'bg-sky-500/15 border border-sky-500/40 text-white font-semibold'
+          : 'text-slate-400 hover:bg-slate-800/60';
+        return `<div class="flex items-center justify-between px-3 py-2 rounded-lg text-xs ${bg}">
+          <span class="truncate">${ch.id}. ${ch.title}</span>
+          ${badge}
+        </div>`;
+      }).join('');
+    }
+
+    function openTerm(key) {
+      const item = terms[key];
+      if (!item) return;
+      document.getElementById('termName').textContent = key;
+      document.getElementById('termBadge').textContent = item.badge;
+      document.getElementById('termHinglish').textContent = item.hinglish;
+      document.getElementById('termOwner').textContent = item.owner;
+      document.getElementById('termImpact').textContent = item.impact;
+    }
+
+    function scrollToSection(id) {
+      document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+    }
+
+    renderChapters();
+    openTerm('Load Path');
+  </script>
+</body>
+</html>
